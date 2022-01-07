@@ -1,0 +1,63 @@
+﻿@using proveedoresLECH.Models
+@model List<ProveedoresCLS>
+@{
+    ViewBag.Title = "Inicio Proveedor";
+    List<SelectListItem> listaEstatus = (List<SelectListItem>)ViewBag.listEstatus;
+}
+<style>
+    .contenedor {
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="row justify-content-md-center" style="margin-bottom:1rem;">
+    <div class="col-md-auto justify-content-start" style="margin-bottom:1rem;">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body contenedor">
+                <a href="@Url.Action("Index","Altap")" class="btn stretched-link"><h5 class="card-title">Alta de Proveedor</h5></a>
+                <i class="fas fa-user-plus fa-5x"></i>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <table id="tablaProveedor" class="table hover display" style="width:100%">
+        <thead>
+            <tr>
+                <td>@Html.LabelFor(p => Model[0].iidProveedor)</td>
+                <td>@Html.LabelFor(p => Model[0].codigo)</td>
+                <td>@Html.LabelFor(p => Model[0].razonSocial)</td>
+                <td>@Html.LabelFor(p => Model[0].rfc)</td>
+                <td>Operaciones</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.iidProveedor</td>
+                    <td>@item.codigo</td>
+                    <td>@item.razonSocial</td>
+                    <td>@item.rfc</td>
+                    <td>
+                        @Html.ActionLink(" ", "Index", "Modificarp", new { id = item.iidProveedor }, new { @class = "btn btn-outline-primary fas fa-user-edit" })
+                        @Html.ActionLink(" ", "Eliminar", "Provedor", new { id = item.iidProveedor }, new { @class = "btn btn-outline-danger fas fa-window-close" })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#tablaProveedor').DataTable({
+            "language":
+            {
+                url: "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+            },
+            "paging": false,
+        });
+        //new $.fn.dataTable.FixedColumns(table);
+    });
+</script>
